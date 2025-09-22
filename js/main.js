@@ -1,4 +1,4 @@
-//Hola profes =)
+//Trivia de preguntas y respuestas por niveles
 
 // Aca guardamos nombre del usuario
 let nombre = prompt("Bienvenido a FruitSending Art! Cómo te llamas?")
