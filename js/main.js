@@ -1,100 +1,130 @@
 //Trivia de preguntas y respuestas por niveles
 
-// Aca guardamos nombre del usuario
-let nombre = prompt("Bienvenido a FruitSending Art! Cómo te llamas?")
-// Acá guardamos el puntaje total
-let score = 0;
 
-//Funcion principal
-const jugar = function() {
-    // pregunto la opcion deseada al usuario
-    let menu = prompt(nombre+" vamos a jugar! Por favor seleccioná tu nivel: \n P- Principiante \n I- Intermedio \n A- Avanzado \n\n O también podes: \n S- Ver tu score \n Q- Salir").toLowerCase()
-    // segun la opcion selecciono el case
-    while (menu !== "q"){
-        switch (menu){
-            case "p":
-                preguntar(listaPreguntasP, menu)
-                break
-            case "i":
-                preguntar(listaPreguntasI, menu)
-                break
-            case "a":
-                preguntar(listaPreguntasA, menu)
-                break
-            case "s":
-                checkearScore()
-                break
-            default:
-                alert("Opción no disponible.")
-                break
+const preguntas = [
+    {
+        id: 1,
+        categoria: "Historia",
+        nombre: "¿Quién pintó la Mona Lisa?",
+        opciones: ["Rafael", "Miguel Angel", "Leonardo da Vinci"],
+        respuesta: 2,
+        puntos: 100
+    },
+    {
+        id: 2,
+        categoria: "Historia",
+        nombre: "¿En qué año nació Georges Pierre Seurat?",
+        opciones: ["1654", "1859", "1998"],
+        respuesta: 1,
+        puntos: 200
+    },
+    {
+        id: 3,
+        categoria: "Historia",
+        nombre: "¿Qué estilo dominó el Renacimiento?",
+        opciones: ["Humanismo y arte inspirado en la Antigüedad clásica", "Manierismo, barroco y rococó", "Impresionismo y expresionismo"],
+        respuesta: 0,
+        puntos: 300
+    },
+    {
+        id: 4,
+        categoria: "Técnicas",
+        nombre: "¿¿Qué es el puntillismo?",
+        opciones: ["Una técnica pictorica que utiliza diminutos puntos de color para formar imágenes", "La forma en que las impresoras de punto imprimen sobre el papel", "Una tecnica textil que usa acabados de puntillas en las telas"],
+        respuesta: 0,
+        puntos: 100
+    },
+    {
+        id: 5,
+        categoria: "Técnicas",
+        nombre: "¿Qué es el impasto?",
+        opciones: ["Una técnica en la que se usa pegamento para empastar distintos objetos", "Una técnica de acuarela para pintar pasto y hierbas", "Una técnica que consiste en aplicar la pintura en capas gruesas y con volumen sobre la superficie"],
+        respuesta: 2,
+        puntos: 200
+    },
+    {
+        id: 6,
+        categoria: "Técnicas",
+        nombre: "¿Qué implica el collage?",
+        opciones: ["Cortar y pegar papeles", "Unir elementos de distinto origen", "Juntar cosas separadas"],
+        respuesta: 1,
+        puntos: 300
+    },
+    {
+        id: 7,
+        categoria: "Chismes",
+        nombre: "¿Qué artista vendió un plátano pegado con cinta?",
+        opciones: ["Andy Warhol", "Stephen Prina", "Maurizio Cattela"],
+        respuesta: 2,
+        puntos: 100
+    },
+    {
+        id: 8,
+        categoria: "Chismes",
+        nombre: "¿Quién rompió su obra en una subasta?",
+        opciones: ["Banksy", "Christo Javacheff", "Claes Oldenburg"],
+        respuesta: 0,
+        puntos: 200
+    } ,
+    {
+        id: 9,
+        categoria: "Chismes",
+        nombre: "¿Qué pintor vivió con una oreja menos?",
+        opciones: ["Henri Toulouse-Lautrec", "Vincent Van Gogh","Amadeo Modigliani"],
+        respuesta: 1,
+        puntos: 300
+    }
+]
+
+
+let preguntasJugadas = []
+
+//Reviso si el usuario ya jugó, declaro la var y traigo los puntos guardados en localStorage
+let score = localStorage.getItem("score")
+
+// si está undefined (o null?) creo la clave
+if (score == undefined) {
+    score = localStorage.setItem("score", 0)
+}
+
+let rowTitle = document.getElementById("row-title")
+rowTitle.innerHTML =  "Tenes " + score + " puntos"
+
+//Falta mostrar el score en la interfaazzzz
+
+let jeopardyBoard = document.getElementById("jeopardy-board") // como nombre de va uso "products" porque el nombre "productos" ya lo usé en el array
+// // recordar q los arrays de obj se recorren con la f de orden sup/ metodo "forEach", no usar "for-of"
+
+function armarJeopardy() {
+    preguntas.forEach(pregunta => {
+        let contenedor = document.createElement("div")
+        contenedor.className = "cell valor-"+pregunta.puntos
+        contenedor.innerHTML = `${pregunta.nombre} 
+                                <button class="jugar" id="${pregunta.id}">Jugar!</button>`
+        jeopardyBoard.appendChild(contenedor)
+    })
+    escucharBoton()
+}
+
+function escucharBoton() {
+    jugar = document.querySelectorAll(".jugar")
+    jugar.forEach(button => {
+        button.onclick = (e) => {
+            const preguntaId = e.currentTarget.id
+            const preguntaSeleccionada = preguntas.find(pregunta => pregunta.id == preguntaId)
+
+            preguntasJugadas.push(preguntaSeleccionada)
+            console.log(preguntasJugadas)
+            // grisar la pregunta ya jugada (falta css y checkear la logica al ir y volver entre los htmls)
+            preguntaSeleccionada.className = "jugada"
+
+            //guardo en localStorage las preguntas q ya respondió el usuario para inhabilitarlas
+            localStorage.setItem("preguntasJugadas", JSON.stringify(preguntasJugadas))
+            //inicio el localStorage del score
+            //cambio de html luego de procesar todo
+            window.location.href = "./pages/pregunta.html"
         }
-        //Vuelvo a consultar la opcion al terminar el switch
-        menu = prompt(nombre+" por favor seleccioná tu nivel: \n P- Principiante \n I- Intermedio \n A- Avanzado \n\n O también podes: \n S- Ver tu score \n Q- Salir").toLowerCase()
-    }
-    // Mensaje de despedida para cuando se selecciona Q
-    alert("Gracias por jugar!")
+    })
 }
 
-
-// Listados de arrays de preguntas, cada array contiene un array con la pregunta y su respuesta
-const listaPreguntasP = [
-    ["Que material se diluye en aceite? \n 1- Oleos \n 2- Acuarelas", 1],
-    ["Qué artista es famoso por pintar girasoles? \n 1- Lucian Freud \n 2- Vincent Van Gogh", 2],
-    ["Qué movimiento vino primero? \n 1- Renacimiento \n 2- Futurismo", 1],
-    ["Con quién tuvo un romance Frida Khalo? \n 1- Lenin \n 2- Trotsky", 2]
-]
-
-const listaPreguntasI = [
-    ["Como se fabrica la carbonilla? \n 1- quemando papel \n 2- quemando madera", 2],
-    ["Que obra es conocida por sus relojes? \n 1- El mono relojero \n 2- La persistencia de la memoria", 2],
-    ["Qué técnica usó Miguel Ángel para pintar la Capilla Sixtina?  \n 1- fresco \n 2- secco", 1],
-    ["Que artista renegaba de sus obras impresionistas? \n 1- Renoir \n 2- Monet", 1]
-]
-
-const listaPreguntasA = [
-    ["Cuales son los colores primarios en imprenta? \n 1- RGB \n 2- CMYK", 2],
-    ["Qué tipo de obras hizo famoso a W Turner? \n 1- barcos \n 2- libelulas", 1],
-    ["En que siglo nacieron los happenings? \n 1- XIX \n 2- XX", 2],
-    ["Quien fue expulsado de la escuela de arte? \n 1- dali \n 2- modigliani", 1]
-]
-
-// Funcion para iterar 
-const preguntar = function(listaPreguntas, nivel){
-    let ganados = 0
-    let nivelCompletado
-    // For-Of para recorer los arrays 
-    for (const pregunta of listaPreguntas) {
-        //realizo la pregunta
-        let respuesta = prompt(pregunta[0]).toLowerCase()
-        //evalúo la respuesta
-        if (respuesta == pregunta[1]){
-            score++
-            ganados++
-            alert("Correcto! Sumaste un punto =) \n Puntos totales: "+score)
-        } else {
-            alert("Lo siento, respuesta incorrecta.")
-        }
-    }
-
-    //Calculo el nivel
-    if (nivel == "p"){
-        nivelCompletado = "Principiante"
-    } else if  (nivel == "i") {
-        nivelCompletado = "Intermedio"
-    } else {
-        nivelCompletado = "Avanzado"
-    }
-    alert("Felicitaciones, concluiste el nivel "+nivelCompletado+" y ganaste "+ganados+" puntos.")
-}
-
-// Funcion para mostrar los puntos ganados en total
-const checkearScore = function() {
-    if (score > 0){
-        alert("Tu puntaje es de "+score+" puntos, felicitaciones "+nombre+"!")
-    } else {
-        alert("Todavía no tenes puntos, pero no te desanimes "+nombre+"! Aun tenes oportunidades de acertar.")
-    }
-}
-
-
-jugar()
+armarJeopardy()

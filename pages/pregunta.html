@@ -13,11 +13,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- CSS -->
-    <link href="./css/style.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
 
     <!-- javascript -->
-    <script defer src="./js/main.js"></script>
-
+    <script defer src="../js/pregunta.js"></script>
 </head>
 
 <body>
@@ -28,14 +27,9 @@
         importa si sabés quién pintó qué o en qué siglo nació tal escultor: lo que importa es tu capacidad para
         responder con estilo, convicción y una pizca de fruta bien mandada. ¡A improvisar se ha dicho!</h3>
 
-    <div class="container">
-        <div id="jeopardy-board" class="jeopardy-board">
-            <!-- Fila de puntos -->
-            <div class="row-title" id="row-title">Puntos</div>
-            <div class="cell valor-100">100</div>
-            <div class="cell valor-200">200</div>
-            <div class="cell valor-300">300</div>
-        </div>
+    <div class="trivia-container">
+        <div class="pregunta"></div>
+        <div class="puntos"></div>
     </div>
 
     <!-- Bootstrap JS -->
