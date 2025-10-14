@@ -46,14 +46,26 @@ function escucharRta() {
         //capturo el evento
         button.onclick = (e) => {
             const respuestaId = e.currentTarget.id
-            //falta deshabilitar los botones luego del clic
-            respuesta.forEach(button => {button.disabled = true})
+            //para cada boton
+            respuesta.forEach(button => {
+                //los deshabilito luego del clic
+                button.disabled = true
+                // si es el boton correcto lo pinto de verde
+                if (button.id == ultimaJugada.respuesta){
+                    button.className = "opcion btn btn-success"
+                } else {
+                    // si no de rojo
+                    button.className = "opcion btn btn-danger"
+                }
+            })
+            //muestro rta correcta
+            
             // comparo el id de respuesta seleccionada con id rta correcta a ver si coinciden
             if (respuestaId == ultimaJugada.respuesta){
                 let evaluacion = document.createElement("div")
                 evaluacion.className = "correcto"
-                evaluacion.innerHTML = `Correcto!
-                                        <a href="../index.html" class="volver">volver</a>`
+                evaluacion.innerHTML = `<div class="alert alert-success" role="alert">Correcto!</div>
+                                        <a href="../index.html" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Volver</a>`
                 triviaContainer.appendChild(evaluacion)
                 //sumar score
                 const totalPuntos = parseInt(score) + parseInt(ultimaJugada.puntos)
@@ -61,8 +73,8 @@ function escucharRta() {
             } else {
                 let evaluacion = document.createElement("div")
                 evaluacion.className = "incorrecto"
-                evaluacion.innerHTML = `Incorrecto :(
-                                        <a href="../index.html" class="volver">volver</a>`
+                evaluacion.innerHTML = `<div class="alert alert-danger" role="alert">Incorecto :(</div>
+                                        <a href="../index.html" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Volver</a>`
                 triviaContainer.appendChild(evaluacion)
             }
         }

@@ -21,6 +21,24 @@
 </head>
 
 <body>
+    <div class="modal" tabindex="-1" id="modalBienvenida">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Bienvenido!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Cómo te llamas?</p>
+                    <input type="text" id="nombreUsuario" class="form-control" placeholder="Escribí tu nombre">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                        id="botonGuardar">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <h1>FruitSending Art</h1>
     <h2>Cuando no sabés, ¡dibujalo y mandá fruta!</h2>
@@ -30,6 +48,8 @@
 
     <div class="container">
         <div id="jeopardy-board" class="jeopardy-board">
+            <!-- Fila de bienvenida -->
+            <div class="row-title" id="row-welcome"></div>
             <!-- Fila de puntos -->
             <div class="row-title" id="row-title">Puntos</div>
             <div class="cell valor-100">100</div>

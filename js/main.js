@@ -1,5 +1,32 @@
 //Trivia de preguntas y respuestas por niveles
 
+//Muestro el modal para obtener el nombre
+document.addEventListener("DOMContentLoaded", function () {
+    const nombreGuardado = localStorage.getItem("nombreUsuario")
+
+    if (!nombreGuardado) {
+        // Si no hay nombre guardado, mostrar el modal usando la api de javascript de bootstrap
+        const modal = new bootstrap.Modal(document.getElementById("modalBienvenida"))
+        modal.show()
+    } else {
+        // Si ya hay nombre, mostrar saludo
+        const saludo = document.getElementById("row-welcome")
+        if (saludo) {
+            saludo.innerHTML = `¡Bienvenido de nuevo, ${nombreGuardado}!`
+        }
+    }
+
+    // Guardar el nombre cuando se hace clic en "Guardar"
+    const botonGuardar = document.getElementById("botonGuardar")
+    botonGuardar.onclick = () => {
+        //acá tendria que validar el campo
+        //.value.trim() elimina espacios en blanco adelante o detras del value
+        const nombreUsuario = document.getElementById("nombreUsuario").value.trim()
+        if (nombreUsuario !== "") {
+            localStorage.setItem("nombreUsuario", nombreUsuario)
+        }
+    }
+})
 
 const preguntas = [
     {
@@ -99,9 +126,7 @@ let jeopardyBoard = document.getElementById("jeopardy-board") // como nombre de 
 function armarJeopardy() {
     preguntas.forEach(pregunta => {
         let contenedor = document.createElement("div")
-        contenedor.className = "cell valor-"+pregunta.puntos
-        contenedor.innerHTML = `${pregunta.nombre} 
-                                <button class="jugar" id="${pregunta.id}">Jugar!</button>`
+        contenedor.innerHTML = `<button class="jugar cell valor-${pregunta.puntos}" id="${pregunta.id}">${pregunta.nombre}</button>`
         jeopardyBoard.appendChild(contenedor)
     })
     escucharBoton()
