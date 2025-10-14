@@ -84,7 +84,8 @@ let score = localStorage.getItem("score")
 
 // si está undefined (o null?) creo la clave
 if (score == undefined) {
-    score = localStorage.setItem("score", 0)
+    localStorage.setItem("score", 0)
+    score = 0
 }
 
 let rowTitle = document.getElementById("row-title")
@@ -120,7 +121,6 @@ function escucharBoton() {
 
             //guardo en localStorage las preguntas q ya respondió el usuario para inhabilitarlas
             localStorage.setItem("preguntasJugadas", JSON.stringify(preguntasJugadas))
-            //inicio el localStorage del score
             //cambio de html luego de procesar todo
             window.location.href = "./pages/pregunta.html"
         }
