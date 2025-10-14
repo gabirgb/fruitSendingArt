@@ -10,7 +10,7 @@ let triviaContainer = document.querySelector(".trivia-container")
 
 //guardo en una const la ultima preg a la q le hice clic {objeto}
 const ultimaJugada = preguntasJugadas[preguntasJugadas.length - 1];
-console.log(ultimaJugada)
+//console.log(ultimaJugada)
 
 //rendereo la pregunta con sus opciones en el html
 function armarPregunta() {
@@ -47,6 +47,7 @@ function escucharRta() {
         button.onclick = (e) => {
             const respuestaId = e.currentTarget.id
             //falta deshabilitar los botones luego del clic
+            respuesta.forEach(button => {button.disabled = true})
             // comparo el id de respuesta seleccionada con id rta correcta a ver si coinciden
             if (respuestaId == ultimaJugada.respuesta){
                 let evaluacion = document.createElement("div")

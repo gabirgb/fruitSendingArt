@@ -82,7 +82,7 @@ let preguntasJugadas = []
 //Reviso si el usuario ya jugó, declaro la var y traigo los puntos guardados en localStorage
 let score = localStorage.getItem("score")
 
-// si está undefined (o null?) creo la clave
+// si está undefined creo la clave
 if (score == undefined) {
     localStorage.setItem("score", 0)
     score = 0
