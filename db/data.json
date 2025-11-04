@@ -1,0 +1,157 @@
+[
+  {
+    "id": 1,
+    "categoria": "Historia",
+    "nombre": "¿Quién pintó la Mona Lisa?",
+    "opciones": ["Rafael", "Miguel Angel", "Leonardo da Vinci"],
+    "respuesta": 2,
+    "puntos": 100
+  },
+  {
+    "id": 2,
+    "categoria": "Historia",
+    "nombre": "¿En qué año nació Georges Pierre Seurat?",
+    "opciones": ["1654", "1859", "1998"],
+    "respuesta": 1,
+    "puntos": 200
+  },
+  {
+    "id": 3,
+    "categoria": "Historia",
+    "nombre": "¿Qué estilo dominó el Renacimiento?",
+    "opciones": [
+      "Humanismo y arte inspirado en la Antigüedad clásica",
+      "Manierismo, barroco y rococó",
+      "Impresionismo y expresionismo"
+    ],
+    "respuesta": 0,
+    "puntos": 300
+  },
+  {
+    "id": 4,
+    "categoria": "Técnicas",
+    "nombre": "¿¿Qué es el puntillismo?",
+    "opciones": [
+      "Una técnica pictorica que utiliza diminutos puntos de color para formar imágenes",
+      "La forma en que las impresoras de punto imprimen sobre el papel",
+      "Una tecnica textil que usa acabados de puntillas en las telas"
+    ],
+    "respuesta": 0,
+    "puntos": 100
+  },
+  {
+    "id": 5,
+    "categoria": "Técnicas",
+    "nombre": "¿Qué es el impasto?",
+    "opciones": [
+      "Una técnica en la que se usa pegamento para empastar distintos objetos",
+      "Una técnica de acuarela para pintar pasto y hierbas",
+      "Una técnica que consiste en aplicar la pintura en capas gruesas y con volumen sobre la superficie"
+    ],
+    "respuesta": 2,
+    "puntos": 200
+  },
+  {
+    "id": 6,
+    "categoria": "Técnicas",
+    "nombre": "¿Qué implica el collage?",
+    "opciones": [
+      "Cortar y pegar papeles",
+      "Unir elementos de distinto origen",
+      "Juntar cosas separadas"
+    ],
+    "respuesta": 1,
+    "puntos": 300
+  },
+  {
+    "id": 7,
+    "categoria": "Chismes",
+    "nombre": "¿Qué artista vendió un plátano pegado con cinta?",
+    "opciones": ["Andy Warhol", "Stephen Prina", "Maurizio Cattela"],
+    "respuesta": 2,
+    "puntos": 100
+  },
+  {
+    "id": 8,
+    "categoria": "Chismes",
+    "nombre": "¿Quién rompió su obra en una subasta?",
+    "opciones": ["Banksy", "Christo Javacheff", "Claes Oldenburg"],
+    "respuesta": 0,
+    "puntos": 200
+  },
+  {
+    "id": 9,
+    "categoria": "Chismes",
+    "nombre": "¿Qué pintor vivió con una oreja menos?",
+    "opciones": [
+      "Henri Toulouse-Lautrec",
+      "Vincent Van Gogh",
+      "Amadeo Modigliani"
+    ],
+    "respuesta": 1,
+    "puntos": 300
+  },
+  {
+    "id": 10,
+    "categoria": "Obras",
+    "nombre": "¿Quien es el autor de esta obra?",
+    "obra": "../images/obra-10.jpg",
+    "opciones": ["Magritte", "Dali", "Spilimbergo"],
+    "respuesta": 0,
+    "puntos": 100
+  },
+  {
+    "id": 11,
+    "categoria": "Obras",
+    "nombre": "¿Quien es el autor de esta obra?",
+    "obra": "../images/obra-11.jpg",
+    "opciones": ["Quinquela Martin", "Lucian Freud", "Max Ernst"],
+    "respuesta": 1,
+    "puntos": 200
+  },
+  {
+    "id": 12,
+    "categoria": "Obras",
+    "nombre": "¿Quien es el autor de esta obra?",
+    "obra": "../images/obra-12.jpg",
+    "opciones": ["Antonio Berni", "Alphonse Mucha", "Egon Schiele"],
+    "respuesta": 2,
+    "puntos": 300
+  },
+  {
+    "id": 13,
+    "categoria": "Biografias",
+    "nombre": "Qué sabes de...?",
+    "opciones": [
+      "Henri Toulouse-Lautrec",
+      "Vincent Van Gogh",
+      "Amadeo Modigliani"
+    ],
+    "respuesta": 1,
+    "puntos": 100
+  },
+  {
+    "id": 14,
+    "categoria": "Biografias",
+    "nombre": "Qué sabes de...?",
+    "opciones": [
+      "Henri Toulouse-Lautrec",
+      "Vincent Van Gogh",
+      "Amadeo Modigliani"
+    ],
+    "respuesta": 1,
+    "puntos": 200
+  },
+  {
+    "id": 14,
+    "categoria": "Biografias",
+    "nombre": "Qué sabes de...?",
+    "opciones": [
+      "Henri Toulouse-Lautrec",
+      "Vincent Van Gogh",
+      "Amadeo Modigliani"
+    ],
+    "respuesta": 1,
+    "puntos": 300
+  }
+]

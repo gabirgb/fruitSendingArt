@@ -1,9 +1,12 @@
 //Trivia de preguntas y respuestas por niveles
 
-//Muestro el modal para obtener el nombre
+// NOMBRE
+//================================
+
+//Muestro el modal cuando termina de cargarse el dom para obtener el nombre
 document.addEventListener("DOMContentLoaded", function () {
     const nombreGuardado = localStorage.getItem("nombreUsuario")
-
+    // Checkeo si hay nombre
     if (!nombreGuardado) {
         // Si no hay nombre guardado, mostrar el modal usando la api de javascript de bootstrap
         const modal = new bootstrap.Modal(document.getElementById("modalBienvenida"))
@@ -11,100 +14,34 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
         // Si ya hay nombre, mostrar saludo
         const saludo = document.getElementById("row-welcome")
-        if (saludo) {
-            saludo.innerHTML = `¡Bienvenido de nuevo, ${nombreGuardado}!`
-        }
+        saludo.innerHTML = `¡Bienvenid@ de nuevo, ${nombreGuardado}!`
     }
 
     // Guardar el nombre cuando se hace clic en "Guardar"
     const botonGuardar = document.getElementById("botonGuardar")
+    console.log(botonGuardar)
     botonGuardar.onclick = () => {
         //acá tendria que validar el campo
         //.value.trim() elimina espacios en blanco adelante o detras del value
-        const nombreUsuario = document.getElementById("nombreUsuario").value.trim()
-        if (nombreUsuario !== "") {
-            localStorage.setItem("nombreUsuario", nombreUsuario)
+        const nombreNuevo = document.getElementById("nombreUsuario").value.trim()
+        // Si nombreNuevo no está vacio
+        if (nombreNuevo !== "") {
+            // lo guardo en localStorage
+            localStorage.setItem("nombreUsuario", nombreNuevo)
+            const saludo = document.getElementById("row-welcome")
+            saludo.innerHTML = `¡Bienvenid@, ${nombreNuevo}!`
         }
     }
 })
 
-const preguntas = [
-    {
-        id: 1,
-        categoria: "Historia",
-        nombre: "¿Quién pintó la Mona Lisa?",
-        opciones: ["Rafael", "Miguel Angel", "Leonardo da Vinci"],
-        respuesta: 2,
-        puntos: 100
-    },
-    {
-        id: 2,
-        categoria: "Historia",
-        nombre: "¿En qué año nació Georges Pierre Seurat?",
-        opciones: ["1654", "1859", "1998"],
-        respuesta: 1,
-        puntos: 200
-    },
-    {
-        id: 3,
-        categoria: "Historia",
-        nombre: "¿Qué estilo dominó el Renacimiento?",
-        opciones: ["Humanismo y arte inspirado en la Antigüedad clásica", "Manierismo, barroco y rococó", "Impresionismo y expresionismo"],
-        respuesta: 0,
-        puntos: 300
-    },
-    {
-        id: 4,
-        categoria: "Técnicas",
-        nombre: "¿¿Qué es el puntillismo?",
-        opciones: ["Una técnica pictorica que utiliza diminutos puntos de color para formar imágenes", "La forma en que las impresoras de punto imprimen sobre el papel", "Una tecnica textil que usa acabados de puntillas en las telas"],
-        respuesta: 0,
-        puntos: 100
-    },
-    {
-        id: 5,
-        categoria: "Técnicas",
-        nombre: "¿Qué es el impasto?",
-        opciones: ["Una técnica en la que se usa pegamento para empastar distintos objetos", "Una técnica de acuarela para pintar pasto y hierbas", "Una técnica que consiste en aplicar la pintura en capas gruesas y con volumen sobre la superficie"],
-        respuesta: 2,
-        puntos: 200
-    },
-    {
-        id: 6,
-        categoria: "Técnicas",
-        nombre: "¿Qué implica el collage?",
-        opciones: ["Cortar y pegar papeles", "Unir elementos de distinto origen", "Juntar cosas separadas"],
-        respuesta: 1,
-        puntos: 300
-    },
-    {
-        id: 7,
-        categoria: "Chismes",
-        nombre: "¿Qué artista vendió un plátano pegado con cinta?",
-        opciones: ["Andy Warhol", "Stephen Prina", "Maurizio Cattela"],
-        respuesta: 2,
-        puntos: 100
-    },
-    {
-        id: 8,
-        categoria: "Chismes",
-        nombre: "¿Quién rompió su obra en una subasta?",
-        opciones: ["Banksy", "Christo Javacheff", "Claes Oldenburg"],
-        respuesta: 0,
-        puntos: 200
-    } ,
-    {
-        id: 9,
-        categoria: "Chismes",
-        nombre: "¿Qué pintor vivió con una oreja menos?",
-        opciones: ["Henri Toulouse-Lautrec", "Vincent Van Gogh","Amadeo Modigliani"],
-        respuesta: 1,
-        puntos: 300
-    }
-]
 
-
+// Inicializo variables
+// Inicializo los arrays de objetos
+let preguntasDisponibles = []
 let preguntasJugadas = []
+
+// SCORE
+//============================================
 
 //Reviso si el usuario ya jugó, declaro la var y traigo los puntos guardados en localStorage
 let score = localStorage.getItem("score")
@@ -115,34 +52,54 @@ if (score == undefined) {
     score = 0
 }
 
+// Muestro el score
 let rowTitle = document.getElementById("row-title")
-rowTitle.innerHTML =  "Tenes " + score + " puntos"
+rowTitle.innerHTML = "Tenes " + score + " puntos"
 
-//Falta mostrar el score en la interfaazzzz
-
-let jeopardyBoard = document.getElementById("jeopardy-board") // como nombre de va uso "products" porque el nombre "productos" ya lo usé en el array
+// Vinculo el div que contiene las preguntas
+let jeopardyBoard = document.getElementById("jeopardy-board")
+// let preguntasContainer = document.getElementById("preguntas-container")
 // // recordar q los arrays de obj se recorren con la f de orden sup/ metodo "forEach", no usar "for-of"
 
-function armarJeopardy() {
-    preguntas.forEach(pregunta => {
-        let contenedor = document.createElement("div")
-        contenedor.innerHTML = `<button class="jugar cell valor-${pregunta.puntos}" id="${pregunta.id}">${pregunta.nombre}</button>`
-        jeopardyBoard.appendChild(contenedor)
-    })
-    escucharBoton()
+// Vinculo el json con la data
+const URL = "./db/data.json"
+
+
+
+function obtenerPreguntas() {
+    fetch(URL)
+        .then(response => response.json())
+        .then(data => {
+            preguntasDisponibles = data
+            preguntasDisponibles.sort((a, b) => a.puntos - b.puntos)
+            armarJeopardy(data)
+        })
+        .catch(error => console.log("Hubo un error: ", error))
+        .finally(() => console.log("Finalizó la peticion"))
 }
 
-function escucharBoton() {
-    jugar = document.querySelectorAll(".jugar")
-    jugar.forEach(button => {
-        button.onclick = (e) => {
-            const preguntaId = e.currentTarget.id
-            const preguntaSeleccionada = preguntas.find(pregunta => pregunta.id == preguntaId)
 
-            preguntasJugadas.push(preguntaSeleccionada)
-            console.log(preguntasJugadas)
+function armarJeopardy(preguntas) {
+    preguntas.forEach(pregunta => {
+        const contenedor = document.createElement("div")
+        contenedor.innerHTML = `<button class="jugar cell valor-${pregunta.puntos}" id="${pregunta.id}">${pregunta.puntos}</button>`
+        jeopardyBoard.appendChild(contenedor)
+    })
+    escucharBotones()
+}
+
+function escucharBotones() {
+    let botones = document.querySelectorAll(".jugar")
+    //recordar q es una lista de nodos
+
+    botones.forEach(button => {
+        button.onclick = (e) => {
+            const botonId = e.currentTarget.id
+            const botonSeleccionado = preguntasDisponibles.find(preguntasDisponibles => preguntasDisponibles.id == botonId)
+
+            preguntasJugadas.push(botonSeleccionado)
             // grisar la pregunta ya jugada (falta css y checkear la logica al ir y volver entre los htmls)
-            preguntaSeleccionada.className = "jugada"
+            botonSeleccionado.className = "jugado"
 
             //guardo en localStorage las preguntas q ya respondió el usuario para inhabilitarlas
             localStorage.setItem("preguntasJugadas", JSON.stringify(preguntasJugadas))
@@ -152,4 +109,6 @@ function escucharBoton() {
     })
 }
 
-armarJeopardy()
+
+// Llamo a la funcion principal
+obtenerPreguntas()

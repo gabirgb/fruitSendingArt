@@ -10,12 +10,17 @@ let triviaContainer = document.querySelector(".trivia-container")
 
 //guardo en una const la ultima preg a la q le hice clic {objeto}
 const ultimaJugada = preguntasJugadas[preguntasJugadas.length - 1];
-//console.log(ultimaJugada)
+console.log(ultimaJugada)
 
 //rendereo la pregunta con sus opciones en el html
 function armarPregunta() {
     let pregunta = document.querySelector(".pregunta")
     pregunta.innerHTML = ultimaJugada.nombre
+
+    if (ultimaJugada.obra) {
+        let obras = document.querySelector(".obra")
+        obras.innerHTML = `<img src="${ultimaJugada.obra}" alt="" class="obra-img" />`
+    }
 
     let puntos = document.querySelector(".puntos")
     puntos.innerHTML = `Valor: ${ultimaJugada.puntos} puntos`
@@ -34,7 +39,7 @@ function armarPregunta() {
         triviaContainer.appendChild(botonRta)
     })
     escucharRta()
-} 
+}
 
 
 //escucho a que rta le hace clic el usuario
@@ -51,7 +56,7 @@ function escucharRta() {
                 //los deshabilito luego del clic
                 button.disabled = true
                 // si es el boton correcto lo pinto de verde
-                if (button.id == ultimaJugada.respuesta){
+                if (button.id == ultimaJugada.respuesta) {
                     button.className = "opcion btn btn-success"
                 } else {
                     // si no de rojo
@@ -59,9 +64,9 @@ function escucharRta() {
                 }
             })
             //muestro rta correcta
-            
+
             // comparo el id de respuesta seleccionada con id rta correcta a ver si coinciden
-            if (respuestaId == ultimaJugada.respuesta){
+            if (respuestaId == ultimaJugada.respuesta) {
                 let evaluacion = document.createElement("div")
                 evaluacion.className = "correcto"
                 evaluacion.innerHTML = `<div class="alert alert-success" role="alert">Correcto!</div>
