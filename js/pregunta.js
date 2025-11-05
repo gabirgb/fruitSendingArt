@@ -10,7 +10,6 @@ let triviaContainer = document.querySelector(".trivia-container")
 
 //guardo en una const la ultima preg a la q le hice clic {objeto}
 const ultimaJugada = preguntasJugadas[preguntasJugadas.length - 1];
-console.log(ultimaJugada)
 
 //rendereo la pregunta con sus opciones en el html
 function armarPregunta() {
@@ -67,19 +66,42 @@ function escucharRta() {
 
             // comparo el id de respuesta seleccionada con id rta correcta a ver si coinciden
             if (respuestaId == ultimaJugada.respuesta) {
-                let evaluacion = document.createElement("div")
-                evaluacion.className = "correcto"
-                evaluacion.innerHTML = `<div class="alert alert-success" role="alert">Correcto!</div>
-                                        <a href="../index.html" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Volver</a>`
-                triviaContainer.appendChild(evaluacion)
+                Toastify({
+                    text: `Correcto! Ganaste ${ultimaJugada.puntos}`,
+                    duration: 3000,
+                    gravity: "top", // `top` or `bottom`
+                    position: "center", // `left`, `center` or `right`
+                    stopOnFocus: false, // Prevents dismissing of toast on hover
+                    style: {
+                        background: "linear-gradient(to right, #00b09b, #96c93d)",
+                    }
+                }).showToast()
                 //sumar score
                 const totalPuntos = parseInt(score) + parseInt(ultimaJugada.puntos)
                 localStorage.setItem("score", totalPuntos)
+                // volver
+                let evaluacion = document.createElement("div")
+                evaluacion.className = "correcto"
+                evaluacion.innerHTML = `<div class="alert alert-success" role="alert">
+                                            <a href="../index.html" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Volver</a>
+                                        </div>`
+                triviaContainer.appendChild(evaluacion)
             } else {
+                Toastify({
+                    text: `Incorrecto :(`,
+                    duration: 3000,
+                    gravity: "top", // `top` or `bottom`
+                    position: "center", // `left`, `center` or `right`
+                    stopOnFocus: false, // Prevents dismissing of toast on hover
+                    style: {
+                        background: "linear-gradient(to right, rgba(176, 0, 0, 1), rgba(201, 91, 61, 1))",
+                    }
+                }).showToast()
                 let evaluacion = document.createElement("div")
                 evaluacion.className = "incorrecto"
-                evaluacion.innerHTML = `<div class="alert alert-danger" role="alert">Incorecto :(</div>
-                                        <a href="../index.html" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Volver</a>`
+                evaluacion.innerHTML = `<div class="alert alert-danger" role="alert">
+                                            <a href="../index.html" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Volver</a>
+                                        </div>`
                 triviaContainer.appendChild(evaluacion)
             }
         }
