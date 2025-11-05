@@ -1,8 +1,18 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 body {
   font-family: "Open Sans", sans-serif;
-  background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+  background: linear-gradient(135deg, #fdfbfb 0%, #f6b8af 100%);
+  background-repeat: no-repeat;
+  background-size: cover;
   padding: 2rem;
   text-align: center;
+  min-height: 100%;
 }
 
 h1 {
@@ -128,18 +138,58 @@ h4 {
 }
 
 /* Verde */
-.valor-100 {
+.categ-historia {
   background-color: #4caf50;
 }
 
-/* Amarillo */
-.valor-200 {
-  background-color: #fbc02d;
+.title-historia {
+  background-color: #333;
+  color: #4caf50;
+  border: 2px solid #4caf50;
 }
 
 /* Magenta */
-.valor-300 {
+.categ-tecnicas {
   background-color: #ba68c8;
+}
+
+.title-tecnicas {
+  background-color: #333;
+  color: #ba68c8;
+  border: 2px solid #ba68c8;
+}
+
+/* Naranja */
+.categ-chismes {
+  background-color: #ffae00;
+}
+
+.title-chismes {
+  background-color: #333;
+  color: #ffae00;
+  border: 2px solid #ffae00;
+}
+
+/* Celeste */
+.categ-obras {
+  background-color: #0095ff;
+}
+
+.title-obras {
+  background-color: #333;
+  color: #0095ff;
+  border: 2px solid #0095ff;
+}
+
+/* Amarillo */
+.categ-biografias {
+  background-color: #ffe600;
+}
+
+.title-biografias {
+  background-color: #333;
+  color: #ffe600;
+  border: 2px solid #ffe600;
 }
 
 .descripcion {

@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "categoria": "Historia",
+    "categoria": "historia",
     "nombre": "¿Quién pintó la Mona Lisa?",
     "opciones": ["Rafael", "Miguel Angel", "Leonardo da Vinci"],
     "respuesta": 2,
@@ -9,7 +9,7 @@
   },
   {
     "id": 2,
-    "categoria": "Historia",
+    "categoria": "historia",
     "nombre": "¿En qué año nació Georges Pierre Seurat?",
     "opciones": ["1654", "1859", "1998"],
     "respuesta": 1,
@@ -17,7 +17,7 @@
   },
   {
     "id": 3,
-    "categoria": "Historia",
+    "categoria": "historia",
     "nombre": "¿Qué estilo dominó el Renacimiento?",
     "opciones": [
       "Humanismo y arte inspirado en la Antigüedad clásica",
@@ -29,7 +29,7 @@
   },
   {
     "id": 4,
-    "categoria": "Técnicas",
+    "categoria": "tecnicas",
     "nombre": "¿¿Qué es el puntillismo?",
     "opciones": [
       "Una técnica pictorica que utiliza diminutos puntos de color para formar imágenes",
@@ -41,7 +41,7 @@
   },
   {
     "id": 5,
-    "categoria": "Técnicas",
+    "categoria": "tecnicas",
     "nombre": "¿Qué es el impasto?",
     "opciones": [
       "Una técnica en la que se usa pegamento para empastar distintos objetos",
@@ -53,7 +53,7 @@
   },
   {
     "id": 6,
-    "categoria": "Técnicas",
+    "categoria": "tecnicas",
     "nombre": "¿Qué implica el collage?",
     "opciones": [
       "Cortar y pegar papeles",
@@ -65,7 +65,7 @@
   },
   {
     "id": 7,
-    "categoria": "Chismes",
+    "categoria": "chismes",
     "nombre": "¿Qué artista vendió un plátano pegado con cinta?",
     "opciones": ["Andy Warhol", "Stephen Prina", "Maurizio Cattela"],
     "respuesta": 2,
@@ -73,7 +73,7 @@
   },
   {
     "id": 8,
-    "categoria": "Chismes",
+    "categoria": "chismes",
     "nombre": "¿Quién rompió su obra en una subasta?",
     "opciones": ["Banksy", "Christo Javacheff", "Claes Oldenburg"],
     "respuesta": 0,
@@ -81,7 +81,7 @@
   },
   {
     "id": 9,
-    "categoria": "Chismes",
+    "categoria": "chismes",
     "nombre": "¿Qué pintor vivió con una oreja menos?",
     "opciones": [
       "Henri Toulouse-Lautrec",
@@ -93,7 +93,7 @@
   },
   {
     "id": 10,
-    "categoria": "Obras",
+    "categoria": "obras",
     "nombre": "¿Quien es el autor de esta obra?",
     "obra": "../images/obra-10.jpg",
     "opciones": ["Magritte", "Dali", "Spilimbergo"],
@@ -102,7 +102,7 @@
   },
   {
     "id": 11,
-    "categoria": "Obras",
+    "categoria": "obras",
     "nombre": "¿Quien es el autor de esta obra?",
     "obra": "../images/obra-11.jpg",
     "opciones": ["Quinquela Martin", "Lucian Freud", "Max Ernst"],
@@ -111,7 +111,7 @@
   },
   {
     "id": 12,
-    "categoria": "Obras",
+    "categoria": "obras",
     "nombre": "¿Quien es el autor de esta obra?",
     "obra": "../images/obra-12.jpg",
     "opciones": ["Antonio Berni", "Alphonse Mucha", "Egon Schiele"],
@@ -120,7 +120,7 @@
   },
   {
     "id": 13,
-    "categoria": "Biografias",
+    "categoria": "biografias",
     "nombre": "Qué sabes de...?",
     "opciones": [
       "Henri Toulouse-Lautrec",
@@ -132,7 +132,7 @@
   },
   {
     "id": 14,
-    "categoria": "Biografias",
+    "categoria": "biografias",
     "nombre": "Qué sabes de...?",
     "opciones": [
       "Henri Toulouse-Lautrec",
@@ -144,7 +144,7 @@
   },
   {
     "id": 14,
-    "categoria": "Biografias",
+    "categoria": "biografias",
     "nombre": "Qué sabes de...?",
     "opciones": [
       "Henri Toulouse-Lautrec",
