@@ -6,10 +6,16 @@
 // Inicializo variables
 //======================
 let preguntasDisponibles = []
-let preguntasJugadas = localStorage.getItem("preguntasJugadas")
-preguntasJugadas = JSON.parse(preguntasJugadas)
+let preguntasJugadas = []
 
-//console.log("preguntasJugadas: ", preguntasJugadas)
+if (localStorage.getItem("preguntasJugadas")) {
+    preguntasJugadas = localStorage.getItem("preguntasJugadas")
+    preguntasJugadas = JSON.parse(preguntasJugadas)
+
+}
+
+console.log("preguntasJugadas: ", preguntasJugadas)
+
 // Cargo localStorages
 let nombreGuardado = localStorage.getItem("nombreUsuario")
 let score = localStorage.getItem("score")
@@ -167,10 +173,13 @@ function obtenerPreguntas() {
 // Armo la trivia
 //=================
 function armarJeopardy(preguntas) {
+    console.log("Array de preguntas disponibles: ", preguntas) //15 en total
+
     preguntas.forEach(pregunta => {
         const contenedor = document.createElement("div")
         contenedor.innerHTML = `<button class="jugar cell categ-${pregunta.categoria}" id="${pregunta.id}">${pregunta.puntos}</button>`
         jeopardyBoard.appendChild(contenedor)
+        //el id a la pregunta 14 se asigna correctamente en el armado
     })
     escucharBotones()
     grisarPreguntas(preguntasJugadas)
@@ -184,10 +193,12 @@ function armarJeopardy(preguntas) {
 
 
 function grisarPreguntas(jugadas) {
-    //Si existen preguntas jugadas (o sea jugadas NO es NULL), las griso 
+    //Si existen preguntas jugadas (o sea "jugadas" NO es NULL), las griso 
     if (jugadas !== null) {
+        console.log("Array de preguntas jugadas: ", jugadas)
+
         jugadas.forEach(jugada => {
-            //console.log(jugada.id)
+            console.log(jugada.id)
             const grisar = document.getElementById(jugada.id)
             grisar.setAttribute("class", "jugar cell grisada")
             grisar.setAttribute("disabled", "")
@@ -201,7 +212,6 @@ function grisarPreguntas(jugadas) {
             html: `
                 <p><strong>¿Querés jugar de nuevo?</strong></p>
             `,
-            input: "text",
             showCloseButton: true,
             showCancelButton: true,
             focusConfirm: false,
@@ -238,14 +248,17 @@ function grisarPreguntas(jugadas) {
 //======================================================
 function escucharBotones() {
     let botones = document.querySelectorAll(".jugar")
-    //recordar q es una lista de nodos
+    //el boton 14 tiene la clase jugar
+    console.log("Array de nodos que va a ser escuchado para capturar el clic: ", botones)
 
     botones.forEach(button => {
         button.onclick = (e) => {
             const botonId = e.currentTarget.id
             const botonSeleccionado = preguntasDisponibles.find(preguntasDisponibles => preguntasDisponibles.id == botonId)
-            console.log("botonID: ", botonId) //ID del boton, ok
-            console.log("preguntasDisponibles.id: ", preguntasDisponibles.id) //undefined
+
+            console.log("botonID: ", botonId) //ID del boton, es 14 
+            console.log("botonSeleccionado: ", botonSeleccionado) // objeto completo con id 14
+
             preguntasJugadas.push(botonSeleccionado)
 
             //guardo en localStorage las preguntas q ya respondió el usuario para inhabilitarlas
