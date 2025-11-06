@@ -1,9 +1,27 @@
-// traigo el array de preguntas jugadas para capturar la última
-let preguntasJugadas = localStorage.getItem("preguntasJugadas")
-preguntasJugadas = JSON.parse(preguntasJugadas)
+// PREGUNTA
 
-//Traigo el score
-let score = localStorage.getItem("score")
+
+//======================================================================
+// 1- DECLARO/ INICIO VARIABLES
+//======================================================================
+let preguntasDisponibles = []
+let preguntasJugadas = []
+let score = ""
+let nombreGuardado = ""
+
+// reviso si ya hay localStorage y si existe guardo los valores en la variable
+if (localStorage.getItem("preguntasJugadas")) {
+    preguntasJugadas = localStorage.getItem("preguntasJugadas")
+    preguntasJugadas = JSON.parse(preguntasJugadas)
+}
+
+if (localStorage.getItem("nombreUsuario")) {
+    nombreGuardado = localStorage.getItem("nombreUsuario")
+}
+
+if (localStorage.getItem("score")) {
+    score = localStorage.getItem("score")
+}
 
 //Capturo el container donde voy a cargar las preguntas y opciones de rta
 let triviaContainer = document.querySelector(".trivia-container")
@@ -11,7 +29,19 @@ let triviaContainer = document.querySelector(".trivia-container")
 //guardo en una const la ultima preg a la q le hice clic {objeto}
 const ultimaJugada = preguntasJugadas[preguntasJugadas.length - 1];
 
-//rendereo la pregunta con sus opciones en el html
+//======================================================================
+// 2- DEFINO LAS FUNCIONES
+//======================================================================
+
+
+// Funcion usuario cargado *********************************************
+function usuarioCargado() {
+    const bienvenide = document.getElementById("welcome")
+    bienvenide.className = "salude"
+    bienvenide.innerHTML = `¡Bienvenid@ ${nombreGuardado}!<br />Tenes ${score} puntos`
+}
+
+// Funcion constructora pregunta *********************************************
 function armarPregunta() {
     let pregunta = document.querySelector(".pregunta")
     pregunta.innerHTML = ultimaJugada.nombre
@@ -40,8 +70,7 @@ function armarPregunta() {
     escucharRta()
 }
 
-
-//escucho a que rta le hace clic el usuario
+// Funcion evaluacion respuesta *********************************************
 function escucharRta() {
     //selecciono todos los elementos .opcion
     respuesta = document.querySelectorAll(".opcion")
@@ -108,5 +137,5 @@ function escucharRta() {
     })
 }
 
-
+usuarioCargado()
 armarPregunta()

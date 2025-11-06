@@ -1,51 +1,66 @@
 //Trivia de preguntas y respuestas por niveles
-// Al usar sweetalert tuve que cambiar los listeners que habia creado originalmente por los metodods que trae la libreria por defecto para escuchar los eventos de sus botones.
 
 
-//======================
-// Inicializo variables
-//======================
+//======================================================================
+// 1- DECLARO/ INICIO VARIABLES
+//======================================================================
 let preguntasDisponibles = []
 let preguntasJugadas = []
+let score = ""
+let nombreGuardado = ""
 
+// reviso si ya hay localStorage y si existe guardo los valores en la variable
 if (localStorage.getItem("preguntasJugadas")) {
     preguntasJugadas = localStorage.getItem("preguntasJugadas")
     preguntasJugadas = JSON.parse(preguntasJugadas)
-
 }
 
-console.log("preguntasJugadas: ", preguntasJugadas)
+if (localStorage.getItem("nombreUsuario")) {
+    nombreGuardado = localStorage.getItem("nombreUsuario")
+}
 
-// Cargo localStorages
-let nombreGuardado = localStorage.getItem("nombreUsuario")
-let score = localStorage.getItem("score")
+if (localStorage.getItem("score")) {
+    score = localStorage.getItem("score")
+}
 
-// Vinculo el div que contiene las preguntas
+// Vinculo HTML con var
 let jeopardyBoard = document.getElementById("jeopardy-board")
 
-// Vinculo el json con la data
+// Vinculo el JSON con var
 const URL = "./db/data.json"
 
 
 //======================================================================
-// Funcion usuario cargado
+// 2- DEFINO LAS FUNCIONES
 //======================================================================
+
+
+// Funcion usuario cargado *********************************************
 function usuarioCargado() {
     const bienvenide = document.getElementById("welcome")
     bienvenide.className = "salude"
     bienvenide.innerHTML = `¡Bienvenid@ ${nombreGuardado}!<br />Tenes ${score} puntos`
 }
 
-//======================================================================
-// Funcion usuario nuevo
-//======================================================================
+
+// Funcion para resetear css preguntas jugadas******************************************
+function resetearEstilos(datos) {
+    datos.forEach(dato => {
+        const resetear = document.getElementById(dato.id)
+        resetear.setAttribute("class", `jugar cell categ-${dato.categoria}`)
+        resetear.removeAttribute("disabled")
+
+    })
+}
+
+// Funcion usuario nuevo ***********************************************
 function usuarioNuevo() {
     // USUARIO NUEVO - INICIALIZO SCORE EN 0
     // Si o si siempre va a haber un usuario, salvo la 1ra vez q se abre la pag xq no hay un localStorage guardado
     // Luego, si el usuario no guarda nu nombre, va a quedar como Anonimo
     // El usuario puede optar por cambiar el nombre y reiniciar el juego
     localStorage.setItem("score", 0)
-    let score = 0
+    score = 0
     let nombreUsuario = ""
 
     Swal.fire({
@@ -64,7 +79,6 @@ function usuarioNuevo() {
                 return "No te olvides tu nombre"
             }
         },
-        // Botones
         showCloseButton: true,
         showCancelButton: false,
         focusConfirm: false,
@@ -101,9 +115,8 @@ function usuarioNuevo() {
     })
 }
 
-//=======================================
-// Funcion cambio usuario
-//=======================================
+
+// Funcion cambio usuario ***********************************************
 function cambiarUsuario() {
     Swal.fire({
         // USUARIO ACTIVO - TRAIGO DATOS DEL LOCALSTORAGE
@@ -124,8 +137,17 @@ function cambiarUsuario() {
             nombreUsuario = nombreUsuario.trim()
             score = 0
             if (nombreUsuario !== "") {
+                //reseteo estilos
+                resetearEstilos(preguntasJugadas)
+                console.log("PreguntasJugadas: ", preguntasJugadas)
+                // despues de resetear el css de las preguntas jugadas, reseteo var y localstorage
+                preguntasJugadas = []
+                // reseteo localStorage
                 localStorage.setItem("nombreUsuario", nombreUsuario)
                 localStorage.setItem("score", 0)
+                localStorage.setItem("preguntasJugadas", "")
+                console.log("PreguntasJugadas2: ", preguntasJugadas)
+
                 //muestro nombre y puntos nuevos en nav
                 const bienvenide = document.getElementById("welcome")
                 bienvenide.className = "salude"
@@ -140,10 +162,7 @@ function cambiarUsuario() {
 }
 
 
-
-//==========================================================
-// Simulo consulta a bbdd externa para obtener preguntas
-//==========================================================
+// Funcion simulada peticion a servidor externo ***************************************
 function obtenerPreguntas() {
     fetch(URL)
         .then(response => response.json())
@@ -169,95 +188,63 @@ function obtenerPreguntas() {
 }
 
 
-//=================
-// Armo la trivia
-//=================
-function armarJeopardy(preguntas) {
-    console.log("Array de preguntas disponibles: ", preguntas) //15 en total
-
-    preguntas.forEach(pregunta => {
-        const contenedor = document.createElement("div")
-        contenedor.innerHTML = `<button class="jugar cell categ-${pregunta.categoria}" id="${pregunta.id}">${pregunta.puntos}</button>`
-        jeopardyBoard.appendChild(contenedor)
-        //el id a la pregunta 14 se asigna correctamente en el armado
-    })
-    escucharBotones()
-    grisarPreguntas(preguntasJugadas)
-}
-
-//======================================================
-// Funcion para inhabilitar preguntas ya jugadas
-//======================================================
-
-// traigo el array de preguntas jugadas para capturar la última
-
-
+// Funcion para inhabilitar preguntas ya jugadas y reiniciar el juego *************
 function grisarPreguntas(jugadas) {
     //Si existen preguntas jugadas (o sea "jugadas" NO es NULL), las griso 
-    if (jugadas !== null) {
-        console.log("Array de preguntas jugadas: ", jugadas)
-
+    if (jugadas !== "") {
         jugadas.forEach(jugada => {
-            console.log(jugada.id)
             const grisar = document.getElementById(jugada.id)
             grisar.setAttribute("class", "jugar cell grisada")
             grisar.setAttribute("disabled", "")
         })
     }
-    //Verifico si ya contesto todas las preguntas
-    if (jugadas !== null && jugadas.length == preguntasDisponibles.length) {
+    //Verifico si ya contesto todas las preguntas y le pregunto si quiere jugar de nuevo
+    if (jugadas !== "" && jugadas.length == preguntasDisponibles.length) {
         Swal.fire({
-            // USUARIO ACTIVO - TRAIGO DATOS DEL LOCALSTORAGE
             title: `Felicitaciones ${nombreGuardado}, terminaste el juego! \n Total: ${score} puntos`,
             html: `
                 <p><strong>¿Querés jugar de nuevo?</strong></p>
             `,
-            showCloseButton: true,
+            showDenyButton: true,
             showCancelButton: true,
-            focusConfirm: false,
-            confirmButtonText: "Guardar",
-            confirmButtonAriaLabel: "Guardar",
+            confirmButtonText: 'Si',
+            denyButtonText: 'No',
+            customClass: {
+                actions: 'my-actions',
+                cancelButton: 'order-1 right-gap',
+                confirmButton: 'order-2',
+                denyButton: 'order-3',
+            },
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // => El usuario quiere jugar de nuevo
+                //reseteo localStorage de preguntasJugadas y Score
+                localStorage.setItem("preguntasJugadas", "")
+                localStorage.setItem("score", 0)
 
-            // Si el usuario quiere cambiar de nombre
-            // preConfirm: f que se ejecuta cuando el usuario hace clic en el botón de confirmación (en este caso, "Guardar"). SweetAlert2 le pasa automáticamente como argumento el valor del input que definí como input: "text"
-            preConfirm: (nombreUsuario) => {
-                nombreUsuario = nombreUsuario.trim()
+                // reseteo las variables
+                preguntasJugadas = []
                 score = 0
-                if (nombreUsuario !== "") {
-                    localStorage.setItem("nombreUsuario", nombreUsuario)
-                    localStorage.setItem("score", 0)
-                    //muestro nombre y puntos nuevos en nav
-                    const bienvenide = document.getElementById("welcome")
-                    bienvenide.className = "salude"
-                    bienvenide.innerHTML = `¡Bienvenid@ ${nombreUsuario}!<br />Tenes ${score} puntos`
-                    return true
-                } else {
-                    // Si el campo nombre está en blanco, uso el nombre ya precargado
-                    return false
-                }
+
+                //reseteo las clases
+                resetearEstilos(jugadas)
+
+            } else if (result.isDenied) {
+                // => El usuario no quiere jugar más
+                Swal.fire('Gracias por jugar :)', '', '')
             }
         })
     }
 }
 
 
-
-
-//======================================================
-// Funcion para escuchar los botones de las preguntas
-//======================================================
+// Funcion para escuchar los botones de las preguntas *********************************
 function escucharBotones() {
     let botones = document.querySelectorAll(".jugar")
-    //el boton 14 tiene la clase jugar
-    console.log("Array de nodos que va a ser escuchado para capturar el clic: ", botones)
-
     botones.forEach(button => {
         button.onclick = (e) => {
             const botonId = e.currentTarget.id
             const botonSeleccionado = preguntasDisponibles.find(preguntasDisponibles => preguntasDisponibles.id == botonId)
-
-            console.log("botonID: ", botonId) //ID del boton, es 14 
-            console.log("botonSeleccionado: ", botonSeleccionado) // objeto completo con id 14
 
             preguntasJugadas.push(botonSeleccionado)
 
@@ -270,15 +257,29 @@ function escucharBotones() {
 }
 
 
-//=======================================
-// Llamo a las funciones
-//=======================================
+
+//======================================================================================
+// 3- LLAMO A LAS FUNCIONES
+//======================================================================================
+
+// Funcion para armar la trivia ***************************************************
+function armarJeopardy(preguntas) {
+
+    preguntas.forEach(pregunta => {
+        const contenedor = document.createElement("div")
+        contenedor.innerHTML = `<button class="jugar cell categ-${pregunta.categoria}" id="${pregunta.id}">${pregunta.puntos}</button>`
+        jeopardyBoard.appendChild(contenedor)
+        //el id a la pregunta 14 se asigna correctamente en el armado
+    })
+    escucharBotones()
+    grisarPreguntas(preguntasJugadas)
+}
 
 // Nombre y score
 function saludo() {
     if (nombreGuardado) {
         usuarioCargado()
-    } else if (nombreGuardado == null) {
+    } else if (nombreGuardado == "") {
         usuarioNuevo()
     }
 }
