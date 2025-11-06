@@ -37,7 +37,7 @@ const ultimaJugada = preguntasJugadas[preguntasJugadas.length - 1];
 function escucharAbout() {
     about.onclick = (e) => {
         Swal.fire({
-            title: "<strong>Mandá Fruta y Arte!</strong>",
+            title: "Bienvenid@ a <strong>Mandá Fruta y Arte!</strong>",
             html: `
                 <p class="descripcion">Bienvenidos a la trivia donde el conocimiento es opcional
                     y la improvisación es arte. Acá no importa si sabés quién pintó qué o en qué siglo nació tal

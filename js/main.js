@@ -66,9 +66,9 @@ function usuarioNuevo() {
 
     Swal.fire({
         // PIDO EL NOMBRE
-        title: "Bienvenido a <strong>Mandá FrutArte!</strong>",
+        title: "Bienvenid@ a <strong>Mandá Fruta y Arte!</strong>",
         html: `
-            <p class="descripcion">Bienvenidos a Fruit Sending Art, la trivia donde el conocimiento es opcional
+            <p class="descripcion">Bienvenidos a la trivia donde el conocimiento es opcional
                 y la improvisación es arte. Acá no importa si sabés quién pintó qué o en qué siglo nació tal
                 escultor:lo que importa es tu capacidad para responder con estilo, convicción y una pizca de
                 fruta bien mandada. ¡A improvisar se ha dicho!</p>
@@ -227,6 +227,11 @@ function grisarPreguntas(jugadas) {
                 preguntasJugadas = []
                 score = 0
 
+                //muestro nombre y puntos nuevos en nav
+                const bienvenide = document.getElementById("welcome")
+                bienvenide.className = "salude"
+                bienvenide.innerHTML = `¡Bienvenid@ ${nombreUsuario}! Tenes ${score} puntos`
+
                 //reseteo las clases
                 resetearEstilos(jugadas)
 
@@ -261,7 +266,7 @@ function escucharBotones() {
 function escucharAbout() {
     about.onclick = (e) => {
         Swal.fire({
-            title: "<strong>Mandá Fruta y Arte!</strong>",
+            title: "Bienvenid@ a <strong>Mandá Fruta y Arte!</strong>",
             html: `
                 <p class="descripcion">Bienvenidos a la trivia donde el conocimiento es opcional
                     y la improvisación es arte. Acá no importa si sabés quién pintó qué o en qué siglo nació tal
