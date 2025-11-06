@@ -30,7 +30,7 @@
   {
     "id": 4,
     "categoria": "tecnicas",
-    "nombre": "¿¿Qué es el puntillismo?",
+    "nombre": "¿Qué es el puntillismo?",
     "opciones": [
       "Una técnica pictorica que utiliza diminutos puntos de color para formar imágenes",
       "La forma en que las impresoras de punto imprimen sobre el papel",
@@ -121,37 +121,25 @@
   {
     "id": 13,
     "categoria": "biografias",
-    "nombre": "Qué sabes de...?",
-    "opciones": [
-      "Henri Toulouse-Lautrec",
-      "Vincent Van Gogh",
-      "Amadeo Modigliani"
-    ],
-    "respuesta": 1,
+    "nombre": "¿Qué artista uruguayo desarrolló una estética de “constructivismo universal” y fundó su propio museo en vida?",
+    "opciones": ["Joaquín Torres García", "- Pedro Figari", "Rafael Barradas"],
+    "respuesta": 0,
     "puntos": 100
   },
   {
     "id": 14,
     "categoria": "biografias",
-    "nombre": "Qué sabes de...?",
-    "opciones": [
-      "Henri Toulouse-Lautrec",
-      "Vincent Van Gogh",
-      "Amadeo Modigliani"
-    ],
-    "respuesta": 1,
+    "nombre": "¿Qué artista textil polaca transformó el bordado en una forma de arte conceptual, explorando temas de memoria y trauma?",
+    "opciones": ["Magdalena Abakanowicz", "Alina Szapocznikow", "Zofia Rydet"],
+    "respuesta": 0,
     "puntos": 200
   },
   {
     "id": 15,
     "categoria": "biografias",
-    "nombre": "Qué sabes de...?",
-    "opciones": [
-      "Henri Toulouse-Lautrec",
-      "Vincent Van Gogh",
-      "Amadeo Modigliani"
-    ],
-    "respuesta": 1,
+    "nombre": "¿Qué pintora afroamericana del siglo XX combinó arte abstracto con espiritualidad y fue reconocida recién en sus últimos años?",
+    "opciones": ["Alma Thomas", "Betye Saar", "Loïs Mailou Jones"],
+    "respuesta": 0,
     "puntos": 300
   }
 ]

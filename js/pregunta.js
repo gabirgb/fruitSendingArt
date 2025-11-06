@@ -33,12 +33,29 @@ const ultimaJugada = preguntasJugadas[preguntasJugadas.length - 1];
 // 2- DEFINO LAS FUNCIONES
 //======================================================================
 
+// Funcion para escuchar boton "La trivia" ***********************************************
+function escucharAbout() {
+    about.onclick = (e) => {
+        Swal.fire({
+            title: "<strong>Mandá Fruta y Arte!</strong>",
+            html: `
+                <p class="descripcion">Bienvenidos a la trivia donde el conocimiento es opcional
+                    y la improvisación es arte. Acá no importa si sabés quién pintó qué o en qué siglo nació tal
+                    escultor:lo que importa es tu capacidad para responder con estilo, convicción y una pizca de
+                    fruta bien mandada. ¡A improvisar se ha dicho!</p>
+                <p>Si querés ponerte en contacto podes encontrarme en IG <strong>@gabienelmundo</strong></p>
+            `,
+            showCloseButton: true
+        })
+    }
+}
+
 
 // Funcion usuario cargado *********************************************
 function usuarioCargado() {
     const bienvenide = document.getElementById("welcome")
     bienvenide.className = "salude"
-    bienvenide.innerHTML = `¡Bienvenid@ ${nombreGuardado}!<br />Tenes ${score} puntos`
+    bienvenide.innerHTML = `¡Bienvenid@ ${nombreGuardado}! Tenes ${score} puntos`
 }
 
 // Funcion constructora pregunta *********************************************
@@ -73,11 +90,12 @@ function armarPregunta() {
 // Funcion evaluacion respuesta *********************************************
 function escucharRta() {
     //selecciono todos los elementos .opcion
-    respuesta = document.querySelectorAll(".opcion")
+    let respuesta = document.querySelectorAll(".opcion")
     //para cada bt
     respuesta.forEach(button => {
         //capturo el evento
         button.onclick = (e) => {
+            // capturo el id de la rta correcta
             const respuestaId = e.currentTarget.id
             //para cada boton
             respuesta.forEach(button => {
@@ -99,10 +117,12 @@ function escucharRta() {
                     text: `Correcto! Ganaste ${ultimaJugada.puntos}`,
                     duration: 3000,
                     gravity: "top", // `top` or `bottom`
-                    position: "center", // `left`, `center` or `right`
-                    stopOnFocus: false, // Prevents dismissing of toast on hover
+                    position: "right", // `left`, `center` or `right`
+                    stopOnFocus: true, // Prevents dismissing of toast on hover
                     style: {
                         background: "linear-gradient(to right, #00b09b, #96c93d)",
+                        right: "20px",
+                        left: "auto", // esto anula el centrado
                     }
                 }).showToast()
                 //sumar score
@@ -120,10 +140,12 @@ function escucharRta() {
                     text: `Incorrecto :(`,
                     duration: 3000,
                     gravity: "top", // `top` or `bottom`
-                    position: "center", // `left`, `center` or `right`
-                    stopOnFocus: false, // Prevents dismissing of toast on hover
+                    position: "right", // `left`, `center` or `right`
+                    stopOnFocus: true, // Prevents dismissing of toast on hover
                     style: {
                         background: "linear-gradient(to right, rgba(176, 0, 0, 1), rgba(201, 91, 61, 1))",
+                        right: "20px",
+                        left: "auto", // esto anula el centrado
                     }
                 }).showToast()
                 let evaluacion = document.createElement("div")
@@ -137,5 +159,6 @@ function escucharRta() {
     })
 }
 
+escucharAbout()
 usuarioCargado()
 armarPregunta()

@@ -25,6 +25,7 @@ if (localStorage.getItem("score")) {
 
 // Vinculo HTML con var
 let jeopardyBoard = document.getElementById("jeopardy-board")
+let about = document.getElementById("about")
 
 // Vinculo el JSON con var
 const URL = "./db/data.json"
@@ -39,7 +40,7 @@ const URL = "./db/data.json"
 function usuarioCargado() {
     const bienvenide = document.getElementById("welcome")
     bienvenide.className = "salude"
-    bienvenide.innerHTML = `¡Bienvenid@ ${nombreGuardado}!<br />Tenes ${score} puntos`
+    bienvenide.innerHTML = `¡Bienvenid@ ${nombreGuardado}! Tenes ${score} puntos`
 }
 
 
@@ -95,7 +96,7 @@ function usuarioNuevo() {
                 // Muestro el saludo en nav
                 const bienvenide = document.getElementById("welcome")
                 bienvenide.className = "salude"
-                bienvenide.innerHTML = `¡Bienvenid@ ${nombreUsuario}!<br />Tenes ${score} puntos`
+                bienvenide.innerHTML = `¡Bienvenid@ ${nombreUsuario}! Tenes ${score} puntos`
                 //para asegurarme de q el modal se cierre retorno true
                 return true
             }
@@ -109,7 +110,7 @@ function usuarioNuevo() {
                 localStorage.setItem("nombreUsuario", nombreUsuario)
                 const bienvenide = document.getElementById("welcome")
                 bienvenide.className = "salude"
-                bienvenide.innerHTML = `¡Bienvenid@ ${nombreUsuario}!<br />Tenés ${score} puntos`
+                bienvenide.innerHTML = `¡Bienvenid@ ${nombreUsuario}! Tenés ${score} puntos`
             }
         }
     })
@@ -151,7 +152,7 @@ function cambiarUsuario() {
                 //muestro nombre y puntos nuevos en nav
                 const bienvenide = document.getElementById("welcome")
                 bienvenide.className = "salude"
-                bienvenide.innerHTML = `¡Bienvenid@ ${nombreUsuario}!<br />Tenes ${score} puntos`
+                bienvenide.innerHTML = `¡Bienvenid@ ${nombreUsuario}! Tenes ${score} puntos`
                 return true
             } else {
                 // Si el campo nombre está en blanco, uso el nombre ya precargado
@@ -238,7 +239,7 @@ function grisarPreguntas(jugadas) {
 }
 
 
-// Funcion para escuchar los botones de las preguntas *********************************
+// Funcion para escuchar los botones preguntas ***********************************************
 function escucharBotones() {
     let botones = document.querySelectorAll(".jugar")
     botones.forEach(button => {
@@ -256,7 +257,22 @@ function escucharBotones() {
     })
 }
 
-
+// Funcion para escuchar boton "La trivia" ***********************************************
+function escucharAbout() {
+    about.onclick = (e) => {
+        Swal.fire({
+            title: "<strong>Mandá Fruta y Arte!</strong>",
+            html: `
+                <p class="descripcion">Bienvenidos a la trivia donde el conocimiento es opcional
+                    y la improvisación es arte. Acá no importa si sabés quién pintó qué o en qué siglo nació tal
+                    escultor:lo que importa es tu capacidad para responder con estilo, convicción y una pizca de
+                    fruta bien mandada. ¡A improvisar se ha dicho!</p>
+                <p>Si querés ponerte en contacto podes encontrarme en IG <strong>@gabienelmundo</strong></p>
+            `,
+            showCloseButton: true
+        })
+    }
+}
 
 //======================================================================================
 // 3- LLAMO A LAS FUNCIONES
@@ -274,6 +290,8 @@ function armarJeopardy(preguntas) {
     escucharBotones()
     grisarPreguntas(preguntasJugadas)
 }
+
+escucharAbout()
 
 // Nombre y score
 function saludo() {

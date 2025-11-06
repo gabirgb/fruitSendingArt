@@ -7,7 +7,7 @@ body {
 
 body {
   font-family: "Open Sans", sans-serif;
-  background: linear-gradient(135deg, #fdfbfb 0%, #f6b8af 100%);
+  background: url(../images/bg.png);
   background-repeat: no-repeat;
   background-size: cover;
   padding: 2rem;
@@ -70,7 +70,7 @@ h4 {
   border-radius: 12px;
   padding: 2rem;
   max-width: 600px;
-  margin: 0 auto;
+  margin: 50px auto 0 auto;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
@@ -203,6 +203,23 @@ h4 {
 
 .descripcion {
   font-size: 0.8rem;
+}
+
+.obra-img {
+  width: 150px;
+}
+
+.salude {
+  display: block;
+  padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
+  font-size: var(--bs-nav-link-font-size);
+  font-weight: bolder;
+  color: var(--bs-nav-link-color);
+  text-decoration: none;
+  background: 0 0;
+  border: 0;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out;
 }
 
 @media (max-width: 768px) {
